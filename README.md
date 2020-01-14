@@ -89,8 +89,8 @@ Then, go to the `src/` directory and execute `python main.py --train`.
 After each epoch of training, validation is done on a validation set (the dataset is split into 95% of the samples used for training and 5% for validation as defined in the class `DataLoader`).
 If you only want to do validation given a trained NN, execute `python main.py --validate`.
 
-Training by Harald Scheidl (githubharald) on the CPU takes 18 hours on my system (VM, Ubuntu 16.04, 8GB of RAM and 4 cores running at 3.9GHz).
-Training in GPU takes 3 hours  (Windows 10, 16GB Ram, NVidia GTX 970M, i7 4710 2.5 GHz) without BatchNormalitation (TF 2.0 Problems).
+Training by Harald Scheidl (githubharald) on the CPU takes 18 hours(VM, Ubuntu 16.04, 8GB of RAM and 4 cores running at 3.9GHz).
+Training in GPU takes 3 hours  on my system (Windows 10, 16GB Ram, NVidia GTX 970M, i7 4710 2.5 GHz) without BatchNormalitation (TF 2.0 Problems)
 
 The expected output is shown below.
 
