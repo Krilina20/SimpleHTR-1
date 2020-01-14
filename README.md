@@ -32,6 +32,8 @@ Tested with:
 * TF 1.3, 1.10 and 1.12
 * Ubuntu 16.04 and Windows 7
 
+Test in progress  
+* TF 2.0
 
 ## Command line arguments
 
