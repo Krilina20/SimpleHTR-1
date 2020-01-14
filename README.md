@@ -72,14 +72,14 @@ Using this configuration, a character error rate of 8% and a word accuracy of 84
 
 ### IAM dataset
 
-The data-loader expects the IAM dataset \[5\] (or any other dataset that is compatible with it) in the `data/` directory.
+The data-loader expects the IAM dataset \[5\] (or any other dataset that is compatible with it) in the `words/` directory.
 Follow these instructions to get the dataset:
 
 1. Register for free at this [website](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database).
 2. Download `words/words.tgz`.
 3. Download `ascii/words.txt`.
-4. Put `words.txt` into the `data/` directory.
-5. Create the directory `words/`.
+4. Create the directory `words/`.
+5. Put `words.txt` into the `words/` directory.
 6. Put the content (directories `a01`, `a02`, ...) of `words.tgz` into `words/`.
 7. Go to `words/` and run `python checkDirs.py` for a rough check if everything is ok.
 
@@ -88,7 +88,8 @@ Otherwise, the parameters are loaded from the last model-snapshot before trainin
 Then, go to the `src/` directory and execute `python main.py --train`.
 After each epoch of training, validation is done on a validation set (the dataset is split into 95% of the samples used for training and 5% for validation as defined in the class `DataLoader`).
 If you only want to do validation given a trained NN, execute `python main.py --validate`.
-Training on the CPU takes 18 hours on my system (VM, Ubuntu 16.04, 8GB of RAM and 4 cores running at 3.9GHz).
+Training by Harald Scheidl (githubharald) on the CPU takes 18 hours on my system (VM, Ubuntu 16.04, 8GB of RAM and 4 cores running at 3.9GHz).
+Training in GPU takes 3 hours  (Windows 10, 16GB Ram, NVidia GTX 970M, i7 4710 2.5 GHz) wihtout BatcNormalitation (TF 2.0 Problems) and 
 The expected output is shown below.
 
 ```
