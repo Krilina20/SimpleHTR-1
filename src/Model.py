@@ -49,7 +49,6 @@ class Model:
         self.update_ops = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.UPDATE_OPS) 
         with tf.control_dependencies(self.update_ops):
             self.optimizer = tf.compat.v1.train.RMSPropOptimizer(self.learningRate).minimize(self.loss)
-#            self.optimizer = tf.compat.v1.train.AdamOptimizer(self.learningRate).minimize(self.loss)
 
         # initialize TF
         (self.sess, self.saver) = self.setupTF()
@@ -60,9 +59,6 @@ class Model:
         cnnIn4d = tf.expand_dims(input=self.inputImgs, axis=3)
 
         # list of parameters for the layers
-#        kernelVals = [5, 5, 3, 3, 3, 5, 3]
-#        featureVals = [1, 32, 64, 64, 128, 128, 256, 256]
-#        strideVals = poolVals = [(2,2), (1,2), (2,1), (1,2), (1,2), (1, 1), (1,2)]
         kernelVals = [5, 5, 3, 3, 3]
         featureVals = [1, 32, 64, 128, 128, 256]
         strideVals = poolVals = [(2,2), (2,2), (1,2), (1,2), (1,2)]        
@@ -74,7 +70,6 @@ class Model:
             kernel = tf.Variable(tf.compat.v1.truncated_normal([kernelVals[i], kernelVals[i], featureVals[i], featureVals[i + 1]], stddev=0.1))
             conv = tf.nn.conv2d(pool, kernel, padding='SAME',  strides=(1,1,1,1))
 #            conv_norm = tf.compat.v1.layers.batch_normalization(conv, training=self.is_train)
-#            conv_norm = tf.compat.v1.keras.layers.BatchNormalization()(conv, self.is_train)
 #            relu = tf.nn.relu(conv_norm)
             relu = tf.nn.relu(conv)
             pool = tf.nn.max_pool(relu, (1, poolVals[i][0], poolVals[i][1], 1), (1, strideVals[i][0], strideVals[i][1], 1), 'VALID')
