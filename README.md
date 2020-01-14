@@ -79,9 +79,9 @@ Follow these instructions to get the dataset:
 2. Download `words/words.tgz`.
 3. Download `ascii/words.txt`.
 4. Put `words.txt` into the `data/` directory.
-5. Create the directory `data/words/`.
-6. Put the content (directories `a01`, `a02`, ...) of `words.tgz` into `data/words/`.
-7. Go to `data/` and run `python checkDirs.py` for a rough check if everything is ok.
+5. Create the directory `words/`.
+6. Put the content (directories `a01`, `a02`, ...) of `words.tgz` into `words/`.
+7. Go to `words/` and run `python checkDirs.py` for a rough check if everything is ok.
 
 If you want to train the model from scratch, delete the files contained in the `model/` directory.
 Otherwise, the parameters are loaded from the last model-snapshot before training begins.
