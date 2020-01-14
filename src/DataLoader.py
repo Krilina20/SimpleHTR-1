@@ -20,6 +20,14 @@ class Batch:
 	def __init__(self, gtTexts, imgs):
 		self.imgs = np.stack(imgs, axis=0)
 		self.gtTexts = gtTexts
+        
+	def reduceSize(self, maxSize):
+		"reduce the size for batch"
+		longitud = len(self.imgs)
+		if maxSize < longitud:
+			longitud = maxSize 
+		self.imgs = self.imgs[:maxSize]
+		self.gtTexts = self.gtTexts[:maxSize]
 
 
 class DataLoader:
@@ -50,7 +58,8 @@ class DataLoader:
 			
 			# filename: part1-part2-part3 --> part1/part1-part2/part1-part2-part3.png
 			fileNameSplit = lineSplit[0].split('-')
-			fileName = filePath + 'words/' + fileNameSplit[0] + '/' + fileNameSplit[0] + '-' + fileNameSplit[1] + '/' + lineSplit[0] + '.png'
+#			fileName = filePath + 'words/' + fileNameSplit[0] + '/' + fileNameSplit[0] + '-' + fileNameSplit[1] + '/' + lineSplit[0] + '.png'
+			fileName = filePath + fileNameSplit[0] + '/' + fileNameSplit[0] + '-' + fileNameSplit[1] + '/' + lineSplit[0] + '.png'
 
 			# GT text are columns starting at 9
 			gtText = self.truncateLabel(' '.join(lineSplit[8:]), maxTextLen)
@@ -64,6 +73,8 @@ class DataLoader:
 			# put sample into list
 			self.samples.append(Sample(gtText, fileName))
 
+    print("Tamaño total del las muestras : ", len(self.samples))
+    
 		# some images in the IAM dataset are known to be damaged, don't show warning for them
 		if set(bad_samples) != set(bad_samples_reference):
 			print("Warning, damaged images found:", bad_samples)
@@ -136,4 +147,20 @@ class DataLoader:
 		self.currIdx += self.batchSize
 		return Batch(gtTexts, imgs)
 
+	def getAllTrain(self):
+		"return all batch elements of train"
+		numTrainSamplesPerEpoch = len(self.trainSamples)
+		self.trainSet()        
+		batchRange = range(0, len(self.samples))
+		gtTexts = [self.samples[i].gtText for i in batchRange]
+		imgs = [preprocess(cv2.imread(self.samples[i].filePath, cv2.IMREAD_GRAYSCALE), self.imgSize, self.dataAugmentation) for i in batchRange]
+		return Batch(gtTexts, imgs)
 
+	def getAllValidate(self):
+		"return all batch elements of validate"
+		self.validationSet()        
+		batchRange = range(0, len(self.samples))
+		gtTexts = [self.samples[i].gtText for i in batchRange]
+		imgs = [preprocess(cv2.imread(self.samples[i].filePath, cv2.IMREAD_GRAYSCALE), self.imgSize, self.dataAugmentation) for i in batchRange]
+		return Batch(gtTexts, imgs)
+    
